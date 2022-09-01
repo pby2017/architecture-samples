@@ -1,5 +1,7 @@
 package com.example.android.architecture.blueprints.todoapp.util
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -79,11 +81,33 @@ private fun AppDrawer(
     }
 }
 
+/*
+* 파라미터로 받은 modifier를 활용하지 않고 Modifier를 사용하는 경우도 있다
+* fillMaxWidth?
+* */
 @Composable
 private fun DrawerHeader(
     modifier: Modifier = Modifier,
 ) {
-
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier
+            .fillMaxWidth()
+            .background(primaryDarkColor)
+            .height(dimensionResource(id = R.dimen.header_height))
+            .padding(dimensionResource(id = R.dimen.header_padding)),
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo_no_fill),
+            contentDescription = stringResource(id = R.string.tasks_header_image_content_description),
+            modifier = Modifier.width(dimensionResource(id = R.dimen.header_image_width)),
+        )
+        Text(
+            text = stringResource(id = R.string.navigation_view_header_title),
+            color = MaterialTheme.colors.surface,
+        )
+    }
 }
 
 /*
