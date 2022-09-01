@@ -15,6 +15,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.USER_MESSAGE_ARG
+import com.example.android.architecture.blueprints.todoapp.tasks.TasksScreen
 import com.example.android.architecture.blueprints.todoapp.util.AppModalDrawer
 
 /*
@@ -55,7 +56,7 @@ fun TodoNavGraph(
                 currentRoute = currentRoute,
                 navigationActions = navActions
             ) {
-
+                TasksScreen()
             }
         }
     }
