@@ -32,7 +32,7 @@ class TasksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppCompatTheme {
-
+                TodoNavGraph()
             }
         }
     }
