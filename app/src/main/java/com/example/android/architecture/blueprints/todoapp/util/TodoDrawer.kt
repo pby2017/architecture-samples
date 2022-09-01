@@ -12,10 +12,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.TodoDestinations
 import com.example.android.architecture.blueprints.todoapp.TodoNavigationActions
+import com.google.accompanist.appcompattheme.AppCompatTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -151,6 +153,24 @@ private fun DrawerButton(
                 text = label,
                 style = MaterialTheme.typography.body2,
                 color = tintColor,
+            )
+        }
+    }
+}
+
+/*
+* 단말기에 install 실패 시, 기존 앱 삭제 후 재시도
+* */
+@Preview("Drawer contents")
+@Composable
+fun PreviewAppDrawer() {
+    AppCompatTheme {
+        Surface {
+            AppDrawer(
+                currentRoute = TodoDestinations.TASKS_ROUTE,
+                navigateToTasks = {},
+                navigateToStatistics = {},
+                closeDrawer = {}
             )
         }
     }
