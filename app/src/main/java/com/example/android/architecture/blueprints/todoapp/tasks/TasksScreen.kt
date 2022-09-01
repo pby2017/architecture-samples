@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.android.architecture.blueprints.todoapp.R
+import com.example.android.architecture.blueprints.todoapp.util.TasksTopAppBar
 
 /*
 * fillMaxSize?
@@ -16,13 +17,16 @@ import com.example.android.architecture.blueprints.todoapp.R
 @Composable
 fun TasksScreen(
     onAddTask: () -> Unit,
+    openDrawer: () -> Unit,
     modifier: Modifier = Modifier,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            // TasksTopAppBar()
+            TasksTopAppBar(
+                openDrawer = openDrawer,
+            )
         },
         modifier = modifier.fillMaxSize(),
         floatingActionButton = {

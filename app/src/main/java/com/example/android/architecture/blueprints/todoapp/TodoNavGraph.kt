@@ -6,6 +6,7 @@ import androidx.compose.material.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -17,6 +18,8 @@ import androidx.navigation.navArgument
 import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.USER_MESSAGE_ARG
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksScreen
 import com.example.android.architecture.blueprints.todoapp.util.AppModalDrawer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /*
 * TodoNavGraph?
@@ -26,11 +29,13 @@ import com.example.android.architecture.blueprints.todoapp.util.AppModalDrawer
 * composable?
 * NavBackStackEntry?
 * remember(navController) calculation 안 코드를 그냥 안쓰고 remember로 감싸는 이유는?
+* openDrawer를 coroutineScope.launch 로 실행하는 이유는?
 * */
 @Composable
 fun TodoNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
     drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
     startDestination: String = TodoDestinations.TASKS_ROUTE,
     navActions: TodoNavigationActions = remember(navController) {
@@ -58,6 +63,7 @@ fun TodoNavGraph(
             ) {
                 TasksScreen(
                     onAddTask = { navActions.navigateToAddEditTask(R.string.add_task, null) },
+                    openDrawer = { coroutineScope.launch { drawerState.open() } },
                 )
             }
         }
