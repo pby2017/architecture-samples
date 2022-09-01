@@ -35,7 +35,6 @@ import androidx.test.filters.LargeTest
 import com.example.android.architecture.blueprints.todoapp.R.string
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
-import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
 //import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
 import dagger.hilt.android.testing.HiltAndroidRule
