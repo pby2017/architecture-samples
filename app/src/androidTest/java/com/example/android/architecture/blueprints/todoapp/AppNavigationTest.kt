@@ -39,7 +39,7 @@ import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
-import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
+//import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
@@ -184,7 +184,7 @@ class AppNavigationTest {
     @Test
     fun taskDetailScreen_doubleUIBackButton() {
         val task = Task("UI <- button", "Description")
-        tasksRepository.saveTaskBlocking(task)
+//        tasksRepository.saveTaskBlocking(task)
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
@@ -219,7 +219,7 @@ class AppNavigationTest {
     @Test
     fun taskDetailScreen_doubleBackButton() {
         val task = Task("Back button", "Description")
-        tasksRepository.saveTaskBlocking(task)
+//        tasksRepository.saveTaskBlocking(task)
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)

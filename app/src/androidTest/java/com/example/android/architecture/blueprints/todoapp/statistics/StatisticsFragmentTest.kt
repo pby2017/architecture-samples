@@ -28,7 +28,7 @@ import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import com.example.android.architecture.blueprints.todoapp.launchFragmentInHiltContainer
-import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
+//import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,8 +63,8 @@ class StatisticsFragmentTest {
     fun tasks_showsNonEmptyMessage() {
         // Given some tasks
         repository.apply {
-            saveTaskBlocking(Task("Title1", "Description1", false))
-            saveTaskBlocking(Task("Title2", "Description2", true))
+//            saveTaskBlocking(Task("Title1", "Description1", false))
+//            saveTaskBlocking(Task("Title2", "Description2", true))
         }
 
         launchFragmentInHiltContainer<StatisticsFragment>()

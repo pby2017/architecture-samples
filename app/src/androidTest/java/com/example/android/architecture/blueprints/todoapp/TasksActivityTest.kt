@@ -37,7 +37,7 @@ import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource
-import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
+//import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.Matchers.allOf
@@ -96,7 +96,7 @@ class TasksActivityTest {
 
     @Test
     fun editTask() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION"))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION"))
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
@@ -151,8 +151,8 @@ class TasksActivityTest {
 
     @Test
     fun createTwoTasks_deleteOneTask() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION"))
-        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION"))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION"))
+//        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION"))
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
@@ -176,7 +176,7 @@ class TasksActivityTest {
     fun markTaskAsCompleteOnDetailScreen_taskIsCompleteInList() {
         // Add 1 active task
         val taskTitle = "COMPLETED"
-        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION"))
+//        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION"))
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
@@ -206,7 +206,7 @@ class TasksActivityTest {
     fun markTaskAsActiveOnDetailScreen_taskIsActiveInList() {
         // Add 1 completed task
         val taskTitle = "ACTIVE"
-        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION", true))
+//        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION", true))
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
@@ -235,7 +235,7 @@ class TasksActivityTest {
     fun markTaskAsCompleteAndActiveOnDetailScreen_taskIsActiveInList() {
         // Add 1 active task
         val taskTitle = "ACT-COMP"
-        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION"))
+//        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION"))
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
@@ -266,7 +266,7 @@ class TasksActivityTest {
     fun markTaskAsActiveAndCompleteOnDetailScreen_taskIsCompleteInList() {
         // Add 1 completed task
         val taskTitle = "COMP-ACT"
-        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION", true))
+//        repository.saveTaskBlocking(Task(taskTitle, "DESCRIPTION", true))
 
         // start up Tasks screen
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
