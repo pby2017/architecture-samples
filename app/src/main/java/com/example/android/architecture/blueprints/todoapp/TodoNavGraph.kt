@@ -56,7 +56,9 @@ fun TodoNavGraph(
                 currentRoute = currentRoute,
                 navigationActions = navActions
             ) {
-                TasksScreen()
+                TasksScreen(
+                    onAddTask = { navActions.navigateToAddEditTask(R.string.add_task, null) },
+                )
             }
         }
     }
