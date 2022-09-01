@@ -177,4 +177,7 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+
+    //m1 chip room 라이브러리 빌드 실패로 인해 추가 room 버전이 2.4.0 이상으로 변경될시 삭제
+    kapt "org.xerial:sqlite-jdbc:$sqliteJdbcVersion"
 }
