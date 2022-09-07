@@ -67,6 +67,10 @@ android {
         enabledForTests = true
     }
 
+    buildFeatures {
+        compose true
+    }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
@@ -81,6 +85,10 @@ android {
         // our test APK to build (has no effect on our AARs)
         excludes += "/META-INF/AL2.0"
         excludes += "/META-INF/LGPL2.1"
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion "$composeCompilerVersion"
     }
 }
 
@@ -127,6 +135,9 @@ dependencies {
     // Hilt testing
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // Jetpack Compose
+    implementation "androidx.activity:activity-compose:$activityComposeVersion"
 
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"

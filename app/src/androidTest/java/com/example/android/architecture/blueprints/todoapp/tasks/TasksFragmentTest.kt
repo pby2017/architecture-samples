@@ -38,10 +38,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.R.id
+import com.example.android.architecture.blueprints.todoapp.TasksActivity
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import com.example.android.architecture.blueprints.todoapp.launchFragmentInHiltContainer
-import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
+//import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import junit.framework.Assert.assertEquals
@@ -79,7 +80,7 @@ class TasksFragmentTest {
     @Test
     fun displayTask_whenRepositoryHasData() {
         // GIVEN - One task already in the repository
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
 
         // WHEN - On startup
         launchActivity()
@@ -90,7 +91,7 @@ class TasksFragmentTest {
 
     @Test
     fun displayActiveTask() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
 
         launchActivity()
 
@@ -107,7 +108,7 @@ class TasksFragmentTest {
 
     @Test
     fun displayCompletedTask() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1", true))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1", true))
 
         launchActivity()
 
@@ -125,7 +126,7 @@ class TasksFragmentTest {
 
     @Test
     fun deleteOneTask() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
 
         launchActivity()
 
@@ -143,8 +144,8 @@ class TasksFragmentTest {
 
     @Test
     fun deleteOneOfTwoTasks() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
-        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2"))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2"))
 
         launchActivity()
 
@@ -164,7 +165,7 @@ class TasksFragmentTest {
 
     @Test
     fun markTaskAsComplete() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
 
         launchActivity()
 
@@ -185,7 +186,7 @@ class TasksFragmentTest {
 
     @Test
     fun markTaskAsActive() {
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1", true))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1", true))
 
         launchActivity()
 
@@ -207,8 +208,8 @@ class TasksFragmentTest {
     @Test
     fun showAllTasks() {
         // Add one active task and one completed task
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
-        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2", true))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2", true))
 
         launchActivity()
 
@@ -222,9 +223,9 @@ class TasksFragmentTest {
     @Test
     fun showActiveTasks() {
         // Add 2 active tasks and one completed task
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
-        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2"))
-        repository.saveTaskBlocking(Task("TITLE3", "DESCRIPTION3", true))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2"))
+//        repository.saveTaskBlocking(Task("TITLE3", "DESCRIPTION3", true))
 
         launchActivity()
 
@@ -239,9 +240,9 @@ class TasksFragmentTest {
     @Test
     fun showCompletedTasks() {
         // Add one active task and 2 completed tasks
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
-        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2", true))
-        repository.saveTaskBlocking(Task("TITLE3", "DESCRIPTION3", true))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2", true))
+//        repository.saveTaskBlocking(Task("TITLE3", "DESCRIPTION3", true))
 
         launchActivity()
 
@@ -256,8 +257,8 @@ class TasksFragmentTest {
     @Test
     fun clearCompletedTasks() {
         // Add one active task and one completed task
-        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
-        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2", true))
+//        repository.saveTaskBlocking(Task("TITLE1", "DESCRIPTION1"))
+//        repository.saveTaskBlocking(Task("TITLE2", "DESCRIPTION2", true))
 
         launchActivity()
 

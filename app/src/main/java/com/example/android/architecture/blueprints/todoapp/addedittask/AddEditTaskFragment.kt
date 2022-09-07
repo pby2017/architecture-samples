@@ -26,7 +26,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.android.architecture.blueprints.todoapp.EventObserver
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.databinding.AddtaskFragBinding
-import com.example.android.architecture.blueprints.todoapp.tasks.ADD_EDIT_RESULT_OK
+import com.example.android.architecture.blueprints.todoapp.ADD_EDIT_RESULT_OK
 import com.example.android.architecture.blueprints.todoapp.util.setupRefreshLayout
 import com.example.android.architecture.blueprints.todoapp.util.setupSnackbar
 import com.google.android.material.snackbar.Snackbar

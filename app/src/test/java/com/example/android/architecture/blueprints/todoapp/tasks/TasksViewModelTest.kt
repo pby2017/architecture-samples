@@ -18,16 +18,13 @@ package com.example.android.architecture.blueprints.todoapp.tasks
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
-import com.example.android.architecture.blueprints.todoapp.MainCoroutineRule
-import com.example.android.architecture.blueprints.todoapp.R
-import com.example.android.architecture.blueprints.todoapp.assertLiveDataEventTriggered
-import com.example.android.architecture.blueprints.todoapp.assertSnackbarMessage
+import com.example.android.architecture.blueprints.todoapp.*
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.FakeRepository
-import com.example.android.architecture.blueprints.todoapp.getOrAwaitValue
-import com.example.android.architecture.blueprints.todoapp.observeForTesting
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.pauseDispatcher
+import kotlinx.coroutines.test.resumeDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule

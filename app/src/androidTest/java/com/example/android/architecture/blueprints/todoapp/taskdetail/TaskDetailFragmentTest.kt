@@ -27,7 +27,7 @@ import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import com.example.android.architecture.blueprints.todoapp.launchFragmentInHiltContainer
-import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
+//import com.example.android.architecture.blueprints.todoapp.util.saveTaskBlocking
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -63,7 +63,7 @@ class TaskDetailFragmentTest {
     fun activeTaskDetails_DisplayedInUi() {
         // GIVEN - Add active (incomplete) task to the DB
         val activeTask = Task("Active Task", "AndroidX Rocks", false)
-        repository.saveTaskBlocking(activeTask)
+//        repository.saveTaskBlocking(activeTask)
 
         // WHEN - Details fragment launched to display task
         val bundle = TaskDetailFragmentArgs(activeTask.id).toBundle()
@@ -84,7 +84,7 @@ class TaskDetailFragmentTest {
     fun completedTaskDetails_DisplayedInUi() {
         // GIVEN - Add completed task to the DB
         val completedTask = Task("Completed Task", "AndroidX Rocks", true)
-        repository.saveTaskBlocking(completedTask)
+//        repository.saveTaskBlocking(completedTask)
 
         // WHEN - Details fragment launched to display task
         val bundle = TaskDetailFragmentArgs(completedTask.id).toBundle()
