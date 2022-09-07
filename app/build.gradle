@@ -138,6 +138,11 @@ dependencies {
 
     // Jetpack Compose
     implementation "androidx.activity:activity-compose:$activityComposeVersion"
+    implementation "androidx.compose.material:material:$composeVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$composeVersion"
+    implementation "androidx.navigation:navigation-compose:$navigationVersion"
+    implementation "com.google.accompanist:accompanist-appcompat-theme:$accompanistVersion"
+    debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
 
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
