@@ -23,3 +23,10 @@ $ fastlane init
 ```
 ## fastlane 디렉토리가 하나 더 생기면, 그 안의 Appfile, Fastfile을 상위 fastlane으로 이동
 ## 마지막에 생성된 fastlane 디렉토리, Gemfile, Gemfile.lock 파일 제거
+
+## fastlane unit test 명령어
+```sh
+$ bundle exec fastlane custom_lane
+or
+$ fastlane android custom_lane
+```

@@ -19,5 +19,8 @@ platform :android do
   desc "Description of what the lane does"
   lane :custom_lane do
     # add actions here: https://docs.fastlane.tools/actions
+    gradle(
+      task: "testDebugUnitTest",
+    )
   end
 end
