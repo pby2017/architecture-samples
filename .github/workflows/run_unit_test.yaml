@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     timeout-minutes: 30
 
     steps:
@@ -33,6 +33,10 @@ jobs:
         run: |
           bundle config path vendor/bundle
           bundle install
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '13.4.1'
 
       - name: Unit test
         uses: maierj/fastlane-action@v2.2.0
