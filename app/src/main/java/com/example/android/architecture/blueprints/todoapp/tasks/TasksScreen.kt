@@ -7,18 +7,21 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.util.TasksTopAppBar
 
 /*
 * fillMaxSize?
 * FloatingActionButton의 위치 이동 가능할까?
+* hiltViewModel?
 * */
 @Composable
 fun TasksScreen(
     onAddTask: () -> Unit,
     openDrawer: () -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: TasksViewModel = hiltViewModel(),
     scaffoldState: ScaffoldState = rememberScaffoldState(),
 ) {
     Scaffold(
@@ -26,6 +29,9 @@ fun TasksScreen(
         topBar = {
             TasksTopAppBar(
                 openDrawer = openDrawer,
+                onFilterAllTasks = { viewModel.setFiltering(TasksFilterType.ALL_TASKS) },
+                onFilterActiveTasks = { viewModel.setFiltering(TasksFilterType.ACTIVE_TASKS) },
+                onFilterCompletedTasks = { viewModel.setFiltering(TasksFilterType.COMPLETED_TASKS) },
             )
         },
         modifier = modifier.fillMaxSize(),

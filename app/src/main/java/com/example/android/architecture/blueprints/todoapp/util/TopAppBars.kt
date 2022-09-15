@@ -17,6 +17,9 @@ import com.example.android.architecture.blueprints.todoapp.R
 @Composable
 fun TasksTopAppBar(
     openDrawer: () -> Unit,
+    onFilterAllTasks: () -> Unit,
+    onFilterActiveTasks: () -> Unit,
+    onFilterCompletedTasks: () -> Unit,
 ) {
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.app_name)) },
@@ -29,7 +32,7 @@ fun TasksTopAppBar(
             }
         },
         actions = {
-            FilterTasksMenu()
+            FilterTasksMenu(onFilterAllTasks, onFilterActiveTasks, onFilterCompletedTasks)
         },
         modifier = Modifier.fillMaxWidth()
     )
@@ -37,7 +40,9 @@ fun TasksTopAppBar(
 
 @Composable
 private fun FilterTasksMenu(
-
+    onFilterAllTasks: () -> Unit,
+    onFilterActiveTasks: () -> Unit,
+    onFilterCompletedTasks: () -> Unit,
 ) {
     TopAppBarDropdownMenu(
         iconContent = {
@@ -46,8 +51,16 @@ private fun FilterTasksMenu(
                 contentDescription = stringResource(id = R.string.menu_filter),
             )
         }
-    ) {
-        // TODO
+    ) { closeMenu ->
+        DropdownMenuItem(onClick = { onFilterAllTasks(); closeMenu() }) {
+            Text(text = stringResource(id = R.string.nav_all))
+        }
+        DropdownMenuItem(onClick = { onFilterActiveTasks(); closeMenu() }) {
+            Text(text = stringResource(id = R.string.nav_active))
+        }
+        DropdownMenuItem(onClick = { onFilterCompletedTasks(); closeMenu() }) {
+            Text(text = stringResource(id = R.string.nav_completed))
+        }
     }
 }
 
@@ -55,6 +68,8 @@ private fun FilterTasksMenu(
 * @Composable ColumnScope.(() -> Unit) -> Unit?
 * by remember { mutableStateOf(false) }?
 * Modifier.wrapContentSize(Alignment.TopEnd)?
+* Box? 여러 위젯을 겹쳐 놓을 수 있는 layout. FrameLayout과 비슷함
+* Box가 FrameLayout과 비슷한데, DropdownMenu가 IconButton과 겹치치 않고 아래에 표시되는 이유는?
 * */
 @Composable
 private fun TopAppBarDropdownMenu(
