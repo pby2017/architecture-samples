@@ -34,9 +34,16 @@ import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepo
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.ACTIVE_TASKS
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.ALL_TASKS
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.COMPLETED_TASKS
+import com.example.android.architecture.blueprints.todoapp.util.WhileUiSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class TasksUiState(
+    val items: List<Task> = emptyList(),
+    val isLoading: Boolean = false,
+)
 
 /**
  * ViewModel for the task list screen.
@@ -95,6 +102,16 @@ class TasksViewModel @Inject constructor(
     val empty: LiveData<Boolean> = Transformations.map(_items) {
         it.isEmpty()
     }
+
+    val uiState: StateFlow<TasksUiState> = flow {
+        // TODO
+        emit(TasksUiState())
+    }
+        .stateIn(
+            scope = viewModelScope,
+            started = WhileUiSubscribed,
+            initialValue = TasksUiState(isLoading = true)
+        )
 
     init {
         // Set initial state
@@ -234,7 +251,7 @@ class TasksViewModel @Inject constructor(
             }
         }
         return tasksToShow
-        }
+    }
 
     fun refresh() {
         _forceUpdate.value = true

@@ -5,9 +5,12 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.android.architecture.blueprints.todoapp.R
 import com.example.android.architecture.blueprints.todoapp.util.TasksTopAppBar
 
@@ -15,7 +18,9 @@ import com.example.android.architecture.blueprints.todoapp.util.TasksTopAppBar
 * fillMaxSize?
 * FloatingActionButton의 위치 이동 가능할까?
 * hiltViewModel?
+* collectAsStateWithLifecycle?
 * */
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun TasksScreen(
     onAddTask: () -> Unit,
@@ -46,6 +51,6 @@ fun TasksScreen(
             }
         },
     ) {
-        // TODO
+        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     }
 }
