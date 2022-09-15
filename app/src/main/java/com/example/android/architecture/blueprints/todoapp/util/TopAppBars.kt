@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +21,8 @@ fun TasksTopAppBar(
     onFilterAllTasks: () -> Unit,
     onFilterActiveTasks: () -> Unit,
     onFilterCompletedTasks: () -> Unit,
+    onClearCompletedTasks: () -> Unit,
+    onRefresh: () -> Unit,
 ) {
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.app_name)) },
@@ -33,6 +36,7 @@ fun TasksTopAppBar(
         },
         actions = {
             FilterTasksMenu(onFilterAllTasks, onFilterActiveTasks, onFilterCompletedTasks)
+            MoreTasksMenu(onClearCompletedTasks, onRefresh)
         },
         modifier = Modifier.fillMaxWidth()
     )
@@ -60,6 +64,26 @@ private fun FilterTasksMenu(
         }
         DropdownMenuItem(onClick = { onFilterCompletedTasks(); closeMenu() }) {
             Text(text = stringResource(id = R.string.nav_completed))
+        }
+    }
+}
+
+@Composable
+private fun MoreTasksMenu(
+    onClearCompletedTasks: () -> Unit,
+    onRefresh: () -> Unit,
+) {
+    TopAppBarDropdownMenu(iconContent = {
+        Icon(
+            imageVector = Icons.Filled.MoreVert,
+            contentDescription = stringResource(id = R.string.menu_more)
+        )
+    }) { closeMenu ->
+        DropdownMenuItem(onClick = { onClearCompletedTasks(); closeMenu() }) {
+            Text(text = stringResource(id = R.string.menu_clear))
+        }
+        DropdownMenuItem(onClick = { onRefresh(); closeMenu() }) {
+            Text(text = stringResource(id = R.string.refresh))
         }
     }
 }
