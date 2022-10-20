@@ -34,6 +34,7 @@ import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepo
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.ACTIVE_TASKS
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.ALL_TASKS
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksFilterType.COMPLETED_TASKS
+import com.example.android.architecture.blueprints.todoapp.util.Async
 import com.example.android.architecture.blueprints.todoapp.util.WhileUiSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -111,12 +112,27 @@ class TasksViewModel @Inject constructor(
         savedStateHandle.getStateFlow(TASKS_FILTER_SAVED_STATE_KEY, ALL_TASKS)
 
     private val _filterUiInfo = _savedFilterType.map { getFilterUiInfo(it) }.distinctUntilChanged()
+    private val _filteredTasksAsync =
+        combine(tasksRepository.getTasksStream(), _savedFilterType) { tasks, type ->
+            filterTasks(tasks, type)
+        }
+            .map { Async.Success(it) }
+            .onStart<Async<List<Task>>> { emit(Async.Loading) }
 
-    val uiState: StateFlow<TasksUiState> = _filterUiInfo.map { filterUiInfo ->
+    val uiState: StateFlow<TasksUiState> = combine(
+        _filterUiInfo, _filteredTasksAsync
+    ) { filterUiInfo, tasksAsync ->
         // TODO
-        TasksUiState(
-            filteringUiInfo = filterUiInfo,
-        )
+        when (tasksAsync) {
+            Async.Loading -> {
+                TasksUiState(isLoading = true)
+            }
+            is Async.Success -> {
+                TasksUiState(
+                    filteringUiInfo = filterUiInfo,
+                )
+            }
+        }
     }
         .stateIn(
             scope = viewModelScope,
@@ -220,6 +236,16 @@ class TasksViewModel @Inject constructor(
 
     private fun showSnackbarMessage(message: Int) {
         _snackbarText.value = Event(message)
+    }
+
+    private fun filterTasks(
+        tasksResult: Result<List<Task>>,
+        filteringType: TasksFilterType,
+    ): List<Task> = if (tasksResult is Success) {
+        filterItems(tasksResult.data, filteringType)
+    } else {
+        showSnackbarMessage(R.string.loading_tasks_error)
+        emptyList()
     }
 
     private fun filterTasks(tasksResult: Result<List<Task>>): LiveData<List<Task>> {
