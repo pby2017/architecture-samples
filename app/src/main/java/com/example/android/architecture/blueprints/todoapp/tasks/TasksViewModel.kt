@@ -43,8 +43,12 @@ import javax.inject.Inject
 data class TasksUiState(
     val items: List<Task> = emptyList(),
     val isLoading: Boolean = false,
+    val filteringUiInfo: FilteringUiInfo = FilteringUiInfo(),
 )
 
+/*
+* savedStateHandle 을 Flow 형태로 바꿔서 사용할 수 있다니
+* */
 /**
  * ViewModel for the task list screen.
  */
@@ -103,9 +107,16 @@ class TasksViewModel @Inject constructor(
         it.isEmpty()
     }
 
-    val uiState: StateFlow<TasksUiState> = flow {
+    private val _savedFilterType =
+        savedStateHandle.getStateFlow(TASKS_FILTER_SAVED_STATE_KEY, ALL_TASKS)
+
+    private val _filterUiInfo = _savedFilterType.map { getFilterUiInfo(it) }.distinctUntilChanged()
+
+    val uiState: StateFlow<TasksUiState> = _filterUiInfo.map { filterUiInfo ->
         // TODO
-        emit(TasksUiState())
+        TasksUiState(
+            filteringUiInfo = filterUiInfo,
+        )
     }
         .stateIn(
             scope = viewModelScope,
@@ -260,7 +271,35 @@ class TasksViewModel @Inject constructor(
     private fun getSavedFilterType(): TasksFilterType {
         return savedStateHandle.get(TASKS_FILTER_SAVED_STATE_KEY) ?: ALL_TASKS
     }
+
+    private fun getFilterUiInfo(requestType: TasksFilterType): FilteringUiInfo =
+        when (requestType) {
+            ALL_TASKS -> {
+                FilteringUiInfo(
+                    R.string.label_all, R.string.no_tasks_all,
+                    R.drawable.logo_no_fill
+                )
+            }
+            ACTIVE_TASKS -> {
+                FilteringUiInfo(
+                    R.string.label_active, R.string.no_tasks_active,
+                    R.drawable.ic_check_circle_96dp
+                )
+            }
+            COMPLETED_TASKS -> {
+                FilteringUiInfo(
+                    R.string.label_completed, R.string.no_tasks_completed,
+                    R.drawable.ic_verified_user_96dp
+                )
+            }
+        }
 }
 
 // Used to save the current filtering in SavedStateHandle.
 const val TASKS_FILTER_SAVED_STATE_KEY = "TASKS_FILTER_SAVED_STATE_KEY"
+
+data class FilteringUiInfo(
+    val currentFilteringLabel: Int = R.string.label_all,
+    val noTasksLabel: Int = R.string.no_tasks_all,
+    val noTaskIconRes: Int = R.drawable.logo_no_fill,
+)

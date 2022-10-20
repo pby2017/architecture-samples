@@ -1,12 +1,16 @@
 package com.example.android.architecture.blueprints.todoapp.tasks
 
+import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
@@ -52,12 +56,14 @@ fun TasksScreen(
                 )
             }
         },
-    ) {
+    ) { paddingValues ->
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
         TasksContent(
             loading = uiState.isLoading,
+            currentFilteringLabel = uiState.filteringUiInfo.currentFilteringLabel,
             onRefresh = viewModel::refresh,
+            modifier = Modifier.padding(paddingValues)
         )
     }
 }
@@ -65,12 +71,27 @@ fun TasksScreen(
 @Composable
 private fun TasksContent(
     loading: Boolean,
+    @StringRes currentFilteringLabel: Int,
     onRefresh: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LoadingContent(
         loading = loading,
         onRefresh = onRefresh,
     ) {
-
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = dimensionResource(id = R.dimen.horizontal_margin))
+        ) {
+            Text(
+                text = stringResource(id = currentFilteringLabel),
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.list_item_padding),
+                    vertical = dimensionResource(id = R.dimen.vertical_margin),
+                ),
+                style = MaterialTheme.typography.h6,
+            )
+        }
     }
 }
