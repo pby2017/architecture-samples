@@ -144,6 +144,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$navigationVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$archLifecycleVersion"
     implementation "com.google.accompanist:accompanist-appcompat-theme:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanistVersion"
     debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
 
     // Dependencies for local unit tests
