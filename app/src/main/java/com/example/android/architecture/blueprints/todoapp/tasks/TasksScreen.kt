@@ -1,9 +1,8 @@
 package com.example.android.architecture.blueprints.todoapp.tasks
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -11,9 +10,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -99,9 +100,45 @@ private fun TasksContent(
             )
             LazyColumn {
                 items(tasks) { task ->
-
+                    TaskItem(
+                        task = task,
+                    )
                 }
             }
         }
+    }
+}
+
+// TextDecoration.LineThrough?: 취소선
+@Composable
+private fun TaskItem(
+    task: Task,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                horizontal = dimensionResource(id = R.dimen.horizontal_margin),
+                vertical = dimensionResource(id = R.dimen.list_item_padding),
+            )
+            .clickable { /* Do Nothing */ }
+    ) {
+        Checkbox(
+            checked = task.isCompleted,
+            onCheckedChange = { /* Do Nothing */ },
+        )
+        Text(
+            text = task.titleForList,
+            style = MaterialTheme.typography.h6,
+            modifier = Modifier.padding(
+                start = dimensionResource(id = R.dimen.horizontal_margin),
+            ),
+            textDecoration = if (task.isCompleted) {
+                TextDecoration.LineThrough
+            } else {
+                null
+            }
+        )
     }
 }
