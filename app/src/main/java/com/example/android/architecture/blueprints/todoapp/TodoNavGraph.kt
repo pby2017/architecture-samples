@@ -63,6 +63,7 @@ fun TodoNavGraph(
             ) {
                 TasksScreen(
                     onAddTask = { navActions.navigateToAddEditTask(R.string.add_task, null) },
+                    onTaskClick = { task -> navActions.navigateToTaskDetail(task.id) },
                     openDrawer = { coroutineScope.launch { drawerState.open() } },
                 )
             }

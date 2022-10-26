@@ -34,6 +34,7 @@ import com.example.android.architecture.blueprints.todoapp.util.TasksTopAppBar
 @Composable
 fun TasksScreen(
     onAddTask: () -> Unit,
+    onTaskClick: (Task) -> Unit,
     openDrawer: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TasksViewModel = hiltViewModel(),
@@ -68,6 +69,7 @@ fun TasksScreen(
             tasks = uiState.items,
             currentFilteringLabel = uiState.filteringUiInfo.currentFilteringLabel,
             onRefresh = viewModel::refresh,
+            onTaskClick = onTaskClick,
             modifier = Modifier.padding(paddingValues)
         )
     }
@@ -79,6 +81,7 @@ private fun TasksContent(
     tasks: List<Task>,
     @StringRes currentFilteringLabel: Int,
     onRefresh: () -> Unit,
+    onTaskClick: (Task) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LoadingContent(
@@ -102,6 +105,7 @@ private fun TasksContent(
                 items(tasks) { task ->
                     TaskItem(
                         task = task,
+                        onTaskClick = onTaskClick,
                     )
                 }
             }
@@ -113,6 +117,7 @@ private fun TasksContent(
 @Composable
 private fun TaskItem(
     task: Task,
+    onTaskClick: (Task) -> Unit,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -122,7 +127,7 @@ private fun TaskItem(
                 horizontal = dimensionResource(id = R.dimen.horizontal_margin),
                 vertical = dimensionResource(id = R.dimen.list_item_padding),
             )
-            .clickable { /* Do Nothing */ }
+            .clickable { onTaskClick(task) }
     ) {
         Checkbox(
             checked = task.isCompleted,
