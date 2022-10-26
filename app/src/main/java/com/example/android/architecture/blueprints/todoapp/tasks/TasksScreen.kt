@@ -4,6 +4,8 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -16,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.android.architecture.blueprints.todoapp.R
+import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.util.LoadingContent
 import com.example.android.architecture.blueprints.todoapp.util.TasksTopAppBar
 
@@ -61,6 +64,7 @@ fun TasksScreen(
 
         TasksContent(
             loading = uiState.isLoading,
+            tasks = uiState.items,
             currentFilteringLabel = uiState.filteringUiInfo.currentFilteringLabel,
             onRefresh = viewModel::refresh,
             modifier = Modifier.padding(paddingValues)
@@ -71,6 +75,7 @@ fun TasksScreen(
 @Composable
 private fun TasksContent(
     loading: Boolean,
+    tasks: List<Task>,
     @StringRes currentFilteringLabel: Int,
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
@@ -92,6 +97,11 @@ private fun TasksContent(
                 ),
                 style = MaterialTheme.typography.h6,
             )
+            LazyColumn {
+                items(tasks) { task ->
+
+                }
+            }
         }
     }
 }
