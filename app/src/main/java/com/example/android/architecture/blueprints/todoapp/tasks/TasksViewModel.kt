@@ -130,6 +130,7 @@ class TasksViewModel @Inject constructor(
             }
             is Async.Success -> {
                 TasksUiState(
+                    items = tasksAsync.data,
                     filteringUiInfo = filterUiInfo,
                     isLoading = isLoading,
                 )

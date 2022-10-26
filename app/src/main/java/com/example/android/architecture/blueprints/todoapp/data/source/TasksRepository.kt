@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.flow
 interface TasksRepository {
 
     fun getTasksStream(): Flow<Result<List<Task>>> = flow {
-        // TODO
+        emit(getTasks(forceUpdate = true))
     }
 
     fun observeTasks(): LiveData<Result<List<Task>>>
