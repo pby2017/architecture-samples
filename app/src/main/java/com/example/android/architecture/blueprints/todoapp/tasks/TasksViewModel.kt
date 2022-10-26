@@ -112,6 +112,7 @@ class TasksViewModel @Inject constructor(
         savedStateHandle.getStateFlow(TASKS_FILTER_SAVED_STATE_KEY, ALL_TASKS)
 
     private val _filterUiInfo = _savedFilterType.map { getFilterUiInfo(it) }.distinctUntilChanged()
+    private val _isLoading = MutableStateFlow(false)
     private val _filteredTasksAsync =
         combine(tasksRepository.getTasksStream(), _savedFilterType) { tasks, type ->
             filterTasks(tasks, type)
@@ -120,8 +121,8 @@ class TasksViewModel @Inject constructor(
             .onStart<Async<List<Task>>> { emit(Async.Loading) }
 
     val uiState: StateFlow<TasksUiState> = combine(
-        _filterUiInfo, _filteredTasksAsync
-    ) { filterUiInfo, tasksAsync ->
+        _filterUiInfo, _isLoading, _filteredTasksAsync
+    ) { filterUiInfo, isLoading, tasksAsync ->
         // TODO
         when (tasksAsync) {
             Async.Loading -> {
@@ -130,6 +131,7 @@ class TasksViewModel @Inject constructor(
             is Async.Success -> {
                 TasksUiState(
                     filteringUiInfo = filterUiInfo,
+                    isLoading = isLoading,
                 )
             }
         }
