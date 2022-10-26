@@ -70,7 +70,8 @@ fun TasksScreen(
             currentFilteringLabel = uiState.filteringUiInfo.currentFilteringLabel,
             onRefresh = viewModel::refresh,
             onTaskClick = onTaskClick,
-            modifier = Modifier.padding(paddingValues)
+            onTaskCheckedChange = viewModel::completeTask,
+            modifier = Modifier.padding(paddingValues),
         )
     }
 }
@@ -82,6 +83,7 @@ private fun TasksContent(
     @StringRes currentFilteringLabel: Int,
     onRefresh: () -> Unit,
     onTaskClick: (Task) -> Unit,
+    onTaskCheckedChange: (Task, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LoadingContent(
@@ -106,6 +108,7 @@ private fun TasksContent(
                     TaskItem(
                         task = task,
                         onTaskClick = onTaskClick,
+                        onCheckedChange = { onTaskCheckedChange(task, it) }
                     )
                 }
             }
@@ -117,6 +120,7 @@ private fun TasksContent(
 @Composable
 private fun TaskItem(
     task: Task,
+    onCheckedChange: (Boolean) -> Unit,
     onTaskClick: (Task) -> Unit,
 ) {
     Row(
@@ -131,7 +135,7 @@ private fun TaskItem(
     ) {
         Checkbox(
             checked = task.isCompleted,
-            onCheckedChange = { /* Do Nothing */ },
+            onCheckedChange = onCheckedChange,
         )
         Text(
             text = task.titleForList,
