@@ -80,7 +80,10 @@ fun TodoNavGraph(
             ),
         ) { entry ->
             val taskId = entry.arguments?.getString(TASK_ID_ARG)
-            AddEditTaskScreen()
+            AddEditTaskScreen(
+                topBarTitle = entry.arguments?.getInt(TITLE_ARG)!!,
+                onBack = { navController.popBackStack() },
+            )
         }
     }
 }

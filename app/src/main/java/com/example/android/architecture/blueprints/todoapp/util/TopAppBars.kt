@@ -1,11 +1,13 @@
 package com.example.android.architecture.blueprints.todoapp.util
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
@@ -114,4 +116,17 @@ private fun TopAppBarDropdownMenu(
             content { expanded = !expanded }
         }
     }
+}
+
+@Composable
+fun AddEditTaskTopAppBar(@StringRes title: Int, onBack: () -> Unit) {
+    TopAppBar(
+        title = { Text(text = stringResource(id = title)) },
+        navigationIcon = {
+            IconButton(onClick = onBack) {
+                Icon(Icons.Filled.ArrowBack, stringResource(id = R.string.menu_back))
+            }
+        },
+        modifier = Modifier.fillMaxWidth(),
+    )
 }

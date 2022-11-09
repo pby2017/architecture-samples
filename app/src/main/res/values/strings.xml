@@ -24,6 +24,7 @@
     <string name="completed_tasks_cleared">Completed tasks cleared</string>
     <string name="menu_filter">Filter</string>
     <string name="open_drawer">Open Drawer</string>
+    <string name="menu_back">Back</string>
     <string name="menu_clear">Clear completed</string>
     <string name="menu_delete_task">Delete task</string>
     <string name="menu_more">More</string>
