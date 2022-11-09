@@ -18,6 +18,7 @@ import androidx.navigation.navArgument
 import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.TASK_ID_ARG
 import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.TITLE_ARG
 import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.USER_MESSAGE_ARG
+import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskScreen
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksScreen
 import com.example.android.architecture.blueprints.todoapp.util.AppModalDrawer
 import kotlinx.coroutines.CoroutineScope
@@ -79,7 +80,7 @@ fun TodoNavGraph(
             ),
         ) { entry ->
             val taskId = entry.arguments?.getString(TASK_ID_ARG)
-            // TODO: AddEditTaskScreen 호출
+            AddEditTaskScreen()
         }
     }
 }
