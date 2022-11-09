@@ -120,21 +120,17 @@ class AddEditTaskViewModel @Inject constructor(
 
     // Called when clicking on fab.
     fun saveTask() {
-        val currentTitle = title.value
-        val currentDescription = description.value
+        val currentTitle = uiState.value.title
+        val currentDescription = uiState.value.description
 
-        if (currentTitle == null || currentDescription == null) {
-            _snackbarText.value = Event(R.string.empty_task_message)
-            return
-        }
-        if (Task(currentTitle, currentDescription).isEmpty) {
+        if (currentTitle.isEmpty() || currentDescription.isEmpty()) {
             _snackbarText.value = Event(R.string.empty_task_message)
             return
         }
 
         val currentTaskId = taskId
         if (isNewTask || currentTaskId == null) {
-            createTask(Task(currentTitle, currentDescription))
+            createNewTask()
         } else {
             val task = Task(currentTitle, currentDescription, taskCompleted, currentTaskId)
             updateTask(task)
@@ -153,8 +149,12 @@ class AddEditTaskViewModel @Inject constructor(
         }
     }
 
-    private fun createTask(newTask: Task) = viewModelScope.launch {
+    private fun createNewTask() = viewModelScope.launch {
+        val newTask = Task(uiState.value.title, uiState.value.description)
         tasksRepository.saveTask(newTask)
+        _uiState.update {
+            it.copy(isTaskSaved = true)
+        }
         _taskUpdatedEvent.value = Event(Unit)
     }
 
