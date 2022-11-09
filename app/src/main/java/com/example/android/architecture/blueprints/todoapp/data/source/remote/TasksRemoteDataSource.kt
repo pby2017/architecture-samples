@@ -24,6 +24,9 @@ import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.runBlocking
 
 /**
  * Implementation of the data source that adds a latency simulating network.
@@ -39,9 +42,11 @@ object TasksRemoteDataSource : TasksDataSource {
         addTask("Finish bridge in Tacoma", "Found awesome girders at half the cost!")
     }
 
-    private val observableTasks = MutableLiveData<Result<List<Task>>>()
+    private val observableTasksLiveData = MutableLiveData<Result<List<Task>>>()
+    private val observableTasks = MutableStateFlow(runBlocking { getTasks() })
 
     override suspend fun refreshTasks() {
+        observableTasksLiveData.value = getTasks()
         observableTasks.value = getTasks()
     }
 
@@ -49,12 +54,16 @@ object TasksRemoteDataSource : TasksDataSource {
         refreshTasks()
     }
 
-    override fun observeTasks(): LiveData<Result<List<Task>>> {
+    override fun getTasksStream(): Flow<Result<List<Task>>> {
         return observableTasks
     }
 
+    override fun observeTasks(): LiveData<Result<List<Task>>> {
+        return observableTasksLiveData
+    }
+
     override fun observeTask(taskId: String): LiveData<Result<Task>> {
-        return observableTasks.map { tasks ->
+        return observableTasksLiveData.map { tasks ->
             when (tasks) {
                 is Result.Loading -> Result.Loading
                 is Error -> Error(tasks.exception)

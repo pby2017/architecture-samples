@@ -18,11 +18,14 @@ package com.example.android.architecture.blueprints.todoapp.data.source
 import androidx.lifecycle.LiveData
 import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Task
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Main entry point for accessing tasks data.
  */
 interface TasksDataSource {
+
+    fun getTasksStream(): Flow<Result<List<Task>>>
 
     fun observeTasks(): LiveData<Result<List<Task>>>
 

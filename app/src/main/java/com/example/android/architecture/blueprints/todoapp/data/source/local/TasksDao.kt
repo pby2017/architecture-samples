@@ -23,6 +23,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.android.architecture.blueprints.todoapp.data.Task
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Data Access Object for the tasks table.
@@ -36,7 +37,9 @@ interface TasksDao {
      * @return all tasks.
      */
     @Query("SELECT * FROM Tasks")
-    fun observeTasks(): LiveData<List<Task>>
+    fun observeTasksLiveData(): LiveData<List<Task>>
+    @Query("SELECT * FROM Tasks")
+    fun observeTasks(): Flow<List<Task>>
 
     /**
      * Observes a single task.

@@ -23,6 +23,7 @@ import com.example.android.architecture.blueprints.todoapp.util.wrapEspressoIdli
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -52,6 +53,10 @@ class DefaultTasksRepository(
 
     override suspend fun refreshTasks() {
         updateTasksFromRemoteDataSource()
+    }
+
+    override fun getTasksStream(): Flow<Result<List<Task>>> {
+        return tasksLocalDataSource.getTasksStream()
     }
 
     override fun observeTasks(): LiveData<Result<List<Task>>> {
