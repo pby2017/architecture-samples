@@ -55,6 +55,10 @@ class TodoNavigationActions(private val navController: NavHostController) {
     }
 
     fun navigateToAddEditTask(title: Int, taskId: String?) {
-        // TODO
+        navController.navigate(
+            route = "$ADD_EDIT_TASK_SCREEN/$title".let {
+                if (taskId != null) "$it?$TASK_ID_ARG=$taskId" else it
+            }
+        )
     }
 }
