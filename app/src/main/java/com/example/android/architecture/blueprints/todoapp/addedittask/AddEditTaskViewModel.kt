@@ -26,8 +26,20 @@ import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+data class AddEditTaskUiState(
+    val title: String = "",
+    val description: String = "",
+    val isTaskCompleted: Boolean = false,
+    val isLoading: Boolean = false,
+    val userMessage: Int? = null,
+    val isTaskSaved: Boolean = false,
+)
 
 /**
  * ViewModel for the Add/Edit screen.
@@ -59,6 +71,9 @@ class AddEditTaskViewModel @Inject constructor(
     private var isDataLoaded = false
 
     private var taskCompleted = false
+
+    private val _uiState = MutableStateFlow(AddEditTaskUiState())
+    val uiState: StateFlow<AddEditTaskUiState> = _uiState.asStateFlow()
 
     fun start(taskId: String?) {
         if (_dataLoading.value == true) {
