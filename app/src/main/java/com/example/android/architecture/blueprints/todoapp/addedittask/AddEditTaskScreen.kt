@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,11 +28,13 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 * rememberScaffoldState 의 역할은?
 * Modifier.padding(paddingValues = paddingValues) 의 의미는?
 * MaterialTheme.colors.secondary.copy(alpha = ContentAlpha.high) 의 의미는?
+* LaunchedEffect 의 역할은?
 * */
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun AddEditTaskScreen(
     @StringRes topBarTitle: Int,
+    onTaskUpdate: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
@@ -62,6 +65,12 @@ fun AddEditTaskScreen(
             onDescriptionChanged = viewModel::updateDescription,
             modifier = Modifier.padding(paddingValues = paddingValues)
         )
+
+        LaunchedEffect(key1 = uiState.isTaskSaved, block = {
+            if (uiState.isTaskSaved) {
+                onTaskUpdate()
+            }
+        })
     }
 }
 
