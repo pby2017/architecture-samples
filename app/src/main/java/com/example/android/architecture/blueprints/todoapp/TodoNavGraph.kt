@@ -15,6 +15,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.TASK_ID_ARG
+import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.TITLE_ARG
 import com.example.android.architecture.blueprints.todoapp.TodoDestinationsArgs.USER_MESSAGE_ARG
 import com.example.android.architecture.blueprints.todoapp.tasks.TasksScreen
 import com.example.android.architecture.blueprints.todoapp.util.AppModalDrawer
@@ -30,6 +32,7 @@ import kotlinx.coroutines.launch
 * NavBackStackEntry?
 * remember(navController) calculation 안 코드를 그냥 안쓰고 remember로 감싸는 이유는?
 * openDrawer를 coroutineScope.launch 로 실행하는 이유는?
+* entry는 argument 전달하는 역할도 함
 * */
 @Composable
 fun TodoNavGraph(
@@ -67,6 +70,16 @@ fun TodoNavGraph(
                     openDrawer = { coroutineScope.launch { drawerState.open() } },
                 )
             }
+        }
+        composable(
+            route = TodoDestinations.ADD_EDIT_TASK_ROUTE,
+            arguments = listOf(
+                navArgument(name = TITLE_ARG) { type = NavType.IntType },
+                navArgument(name = TASK_ID_ARG) { type = NavType.StringType;nullable = true },
+            ),
+        ) { entry ->
+            val taskId = entry.arguments?.getString(TASK_ID_ARG)
+            // TODO: AddEditTaskScreen 호출
         }
     }
 }
