@@ -58,8 +58,8 @@ fun AddEditTaskScreen(
             loading = uiState.isLoading,
             title = uiState.title,
             description = uiState.description,
-            onTitleChanged = { /* viewModel::updateTitle 정의 */ },
-            onDescriptionChanged = { /* viewModel::updateDescription 정의 */ },
+            onTitleChanged = viewModel::updateTitle,
+            onDescriptionChanged = viewModel::updateDescription,
             modifier = Modifier.padding(paddingValues = paddingValues)
         )
     }
