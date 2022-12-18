@@ -4,6 +4,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
+apply from: '../jacoco_android.gradle'
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
 
