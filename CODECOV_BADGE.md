@@ -1,0 +1,1 @@
+[![codecov](https://codecov.io/github/pby2017/architecture-samples/branch/jacoco-setting/graph/badge.svg?token=MWG52M1AY1)](https://codecov.io/github/pby2017/architecture-samples)
