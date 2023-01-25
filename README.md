@@ -1,3 +1,9 @@
+![Coverage](.github/badges/jacoco.svg)
+![Branches](.github/badges/branches.svg)
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/pby2017/architecture-samples/actions/workflows/run_unit_test.yml)
+
+---
+
 # Android Architecture Blueprints - Hilt
 <p align="center">
 <img src="https://github.com/googlesamples/android-architecture/wiki/images/aab-logov2.png" alt="Illustration by Virginia Poltrack"/>
