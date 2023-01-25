@@ -1,0 +1,38 @@
+name: Run Unit Test
+on:
+  push:
+    branches:
+      - jacoco_setting
+  pull_request: # default types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  run_unit_test:
+    name: Run unit test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '11'
+
+      - name: Run unit test
+        run: ./gradlew clean test jacocoTestReport --stacktrace --continue
