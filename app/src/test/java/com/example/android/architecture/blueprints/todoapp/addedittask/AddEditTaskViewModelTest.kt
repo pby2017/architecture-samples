@@ -142,6 +142,20 @@ class AddEditTaskViewModelTest {
         saveTaskAndAssertSnackbarError("", "")
     }
 
+    @Test
+    fun test_updateTitle() {
+        addEditTaskViewModel.updateTitle(newTitle = "test title")
+
+        assertThat(addEditTaskViewModel.uiState.value.title).isEqualTo("test title")
+    }
+
+    @Test
+    fun test_updateDescription() {
+        addEditTaskViewModel.updateDescription(newDescription = "test description")
+
+        assertThat(addEditTaskViewModel.uiState.value.description).isEqualTo("test description")
+    }
+
     private fun saveTaskAndAssertSnackbarError(title: String?, description: String?) {
         (addEditTaskViewModel).apply {
             this.title.value = title
