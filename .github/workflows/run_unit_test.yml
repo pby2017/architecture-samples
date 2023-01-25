@@ -2,7 +2,7 @@ name: Run Unit Test
 on:
   push:
     branches:
-      - jacoco_setting
+      - jacoco-setting
   pull_request: # default types: [opened, synchronize, reopened]
   workflow_dispatch:
 
