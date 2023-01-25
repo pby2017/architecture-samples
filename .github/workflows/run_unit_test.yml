@@ -55,8 +55,7 @@ jobs:
           coverage-badge-filename: jacoco.svg
           generate-branches-badge: true
           branches-badge-filename: branches.svg
-          jacoco-csv-file: >
-            app/build/jacoco/jacoco.csv
+          jacoco-csv-file: app/build/jacoco/jacoco.csv
 
       - name: Commit and push the badge (if it changed)
         uses: EndBug/add-and-commit@v9
