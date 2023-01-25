@@ -21,6 +21,8 @@ import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Result.Error
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 import com.example.android.architecture.blueprints.todoapp.data.Task
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 class FakeDataSource(var tasks: MutableList<Task>? = mutableListOf()) : TasksDataSource {
     override suspend fun getTasks(): Result<List<Task>> {
@@ -67,6 +69,10 @@ class FakeDataSource(var tasks: MutableList<Task>? = mutableListOf()) : TasksDat
 
     override suspend fun deleteTask(taskId: String) {
         tasks?.removeIf { it.id == taskId }
+    }
+
+    override fun getTasksStream(): Flow<Result<List<Task>>> {
+        return emptyFlow()
     }
 
     override fun observeTasks(): LiveData<Result<List<Task>>> {

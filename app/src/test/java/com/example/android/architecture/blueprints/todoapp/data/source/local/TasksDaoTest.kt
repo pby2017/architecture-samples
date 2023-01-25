@@ -25,6 +25,7 @@ import com.example.android.architecture.blueprints.todoapp.MainCoroutineRule
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
@@ -64,7 +65,7 @@ class TasksDaoTest {
     fun closeDb() = database.close()
 
     @Test
-    fun insertTaskAndGetById() = runBlockingTest {
+    fun insertTaskAndGetById() = mainCoroutineRule.runTest {
         // GIVEN - insert a task
         val task = Task("title", "description")
         database.taskDao().insertTask(task)
@@ -81,7 +82,7 @@ class TasksDaoTest {
     }
 
     @Test
-    fun insertTaskReplacesOnConflict() = runBlockingTest {
+    fun insertTaskReplacesOnConflict() = mainCoroutineRule.runTest {
         // Given that a task is inserted
         val task = Task("title", "description")
         database.taskDao().insertTask(task)
@@ -99,7 +100,7 @@ class TasksDaoTest {
     }
 
     @Test
-    fun insertTaskAndGetTasks() = runBlockingTest {
+    fun insertTaskAndGetTasks() = mainCoroutineRule.runTest {
         // GIVEN - insert a task
         val task = Task("title", "description")
         database.taskDao().insertTask(task)
@@ -116,7 +117,7 @@ class TasksDaoTest {
     }
 
     @Test
-    fun updateTaskAndGetById() = runBlockingTest {
+    fun updateTaskAndGetById() = mainCoroutineRule.runTest {
         // When inserting a task
         val originalTask = Task("title", "description")
         database.taskDao().insertTask(originalTask)
@@ -134,7 +135,7 @@ class TasksDaoTest {
     }
 
     @Test
-    fun updateCompletedAndGetById() = runBlockingTest {
+    fun updateCompletedAndGetById() = mainCoroutineRule.runTest {
         // When inserting a task
         val task = Task("title", "description", true)
         database.taskDao().insertTask(task)
@@ -151,7 +152,7 @@ class TasksDaoTest {
     }
 
     @Test
-    fun deleteTaskByIdAndGettingTasks() = runBlockingTest {
+    fun deleteTaskByIdAndGettingTasks() = mainCoroutineRule.runTest {
         // Given a task inserted
         val task = Task("title", "description")
         database.taskDao().insertTask(task)
@@ -165,7 +166,7 @@ class TasksDaoTest {
     }
 
     @Test
-    fun deleteTasksAndGettingTasks() = runBlockingTest {
+    fun deleteTasksAndGettingTasks() = mainCoroutineRule.runTest {
         // Given a task inserted
         database.taskDao().insertTask(Task("title", "description"))
 
@@ -178,7 +179,7 @@ class TasksDaoTest {
     }
 
     @Test
-    fun deleteCompletedTasksAndGettingTasks() = runBlockingTest {
+    fun deleteCompletedTasksAndGettingTasks() = mainCoroutineRule.runTest {
         // Given a completed task inserted
         database.taskDao().insertTask(Task("completed", "task", true))
 

@@ -21,6 +21,8 @@ import androidx.lifecycle.liveData
 import com.example.android.architecture.blueprints.todoapp.data.Result
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 object FakeFailingTasksRemoteDataSource : TasksDataSource {
     override suspend fun getTasks(): Result<List<Task>> {
@@ -29,6 +31,10 @@ object FakeFailingTasksRemoteDataSource : TasksDataSource {
 
     override suspend fun getTask(taskId: String): Result<Task> {
         return Result.Error(Exception("Test"))
+    }
+
+    override fun getTasksStream(): Flow<Result<List<Task>>> {
+        return emptyFlow()
     }
 
     override fun observeTasks(): LiveData<Result<List<Task>>> {

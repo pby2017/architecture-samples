@@ -23,6 +23,9 @@ import com.example.android.architecture.blueprints.todoapp.data.Result.Error
 import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flow
 import java.util.LinkedHashMap
 
 /**
@@ -40,6 +43,10 @@ object FakeTasksRemoteDataSource : TasksDataSource {
 
     override suspend fun refreshTask(taskId: String) {
         refreshTasks()
+    }
+
+    override fun getTasksStream(): Flow<Result<List<Task>>> {
+        return emptyFlow()
     }
 
     override fun observeTasks(): LiveData<Result<List<Task>>> {

@@ -28,6 +28,7 @@ import com.example.android.architecture.blueprints.todoapp.data.succeeded
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Assert.assertThat
@@ -75,7 +76,7 @@ class TasksLocalDataSourceTest {
     }
 
     @Test
-    fun saveTask_retrievesTask() = runBlockingTest {
+    fun saveTask_retrievesTask() = mainCoroutineRule.runTest {
         // GIVEN - a new task saved in the database
         val newTask = Task("title", "description", true)
         localDataSource.saveTask(newTask)
@@ -92,7 +93,7 @@ class TasksLocalDataSourceTest {
     }
 
     @Test
-    fun completeTask_retrievedTaskIsComplete() = runBlockingTest {
+    fun completeTask_retrievedTaskIsComplete() = mainCoroutineRule.runTest {
         // Given a new task in the persistent repository
         val newTask = Task("title")
         localDataSource.saveTask(newTask)
@@ -109,7 +110,7 @@ class TasksLocalDataSourceTest {
     }
 
     @Test
-    fun activateTask_retrievedTaskIsActive() = runBlockingTest {
+    fun activateTask_retrievedTaskIsActive() = mainCoroutineRule.runTest {
         // Given a new completed task in the persistent repository
         val newTask = Task("Some title", "Some description", true)
         localDataSource.saveTask(newTask)
@@ -127,7 +128,7 @@ class TasksLocalDataSourceTest {
     }
 
     @Test
-    fun clearCompletedTask_taskNotRetrievable() = runBlockingTest {
+    fun clearCompletedTask_taskNotRetrievable() = mainCoroutineRule.runTest {
         // Given 2 new completed tasks and 1 active task in the persistent repository
         val newTask1 = Task("title")
         val newTask2 = Task("title2")
@@ -153,7 +154,7 @@ class TasksLocalDataSourceTest {
     }
 
     @Test
-    fun deleteAllTasks_emptyListOfRetrievedTask() = runBlockingTest {
+    fun deleteAllTasks_emptyListOfRetrievedTask() = mainCoroutineRule.runTest {
         // Given a new task in the persistent repository and a mocked callback
         val newTask = Task("title")
 
@@ -168,7 +169,7 @@ class TasksLocalDataSourceTest {
     }
 
     @Test
-    fun getTasks_retrieveSavedTasks() = runBlockingTest {
+    fun getTasks_retrieveSavedTasks() = mainCoroutineRule.runTest {
         // Given 2 new tasks in the persistent repository
         val newTask1 = Task("title")
         val newTask2 = Task("title")
